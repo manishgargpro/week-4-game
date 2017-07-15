@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Star Wars RPG!</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="jumbotron jumbotron-fluid">
+				<h1 class="display">Welcome to the Star Wars RPG!</h1>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="panel panel-default col-sm-10 col-sm-offset-1">
+				<h3 class="panel-heading text-center">Choose from the characters below!</h3>
+				<div class="panel-body" id="charPool">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="panel panel-default col-xs-5 col-sm-3 col-sm-offset-2">
+				<h3 class="panel-heading">Player Area</h3>
+				<div class="panel-body" id="playerArea"></div>
+			</div>
+			<div class="panel panel-default col-xs-5 col-xs-offset-2 col-sm-3 col-sm-offset-2">
+				<h3 class="panel-heading">Enemy Area</h3>
+				<div class="panel-body" id="enemyArea"></div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="text-center" id="playLog">
+					test text
+				</h4>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="btn btn-lg btn-default col-xs-10 col-xs-offset-1 col-sm-2 col-sm-offset-5" id="attackButton">Attack</div>
+		</div>
+	</div>
+	<div class="container-fluid emptyDiv"></div>
 	<script type="text/javascript" src="assets/javascript/jquery-3.2.1.js"></script>
 	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>

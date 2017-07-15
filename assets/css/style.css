@@ -1,0 +1,21 @@
+
+.panel{
+	background-color: #B8DDF0;
+}
+
+#charPool{
+	background-color: #B38EE9;
+}
+
+#playerArea{
+	background-color: #65F3C0;
+}
+
+#enemyArea{
+	background-color: #E2B280;
+}
+
+.emptyDiv{
+	height: 5em;
+	margin-bottom: 0;
+}
