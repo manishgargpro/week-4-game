@@ -75,7 +75,7 @@ $(".characterClick").click(function(){
 		var playerInPlay = $(this);
 		playerInPlay.detach();
 		$("#playerArea").append(playerInPlay);
-		playerInPlay.removeClass("col-xs-6 col-sm-3");
+		playerInPlay.removeClass("col-xs-6 col-sm-3 characterClick");
 		//any character that goes in here gets a class .playerInPlay//
 		playerInPlay.addClass("playerInPlay");
 		$("#playLog1").html("Choose an enemy to fight!");
@@ -84,7 +84,7 @@ $(".characterClick").click(function(){
 		var enemyInPlay = $(this);
 		enemyInPlay.detach();
 		$("#enemyArea").append(enemyInPlay);
-		enemyInPlay.removeClass("col-xs-6 col-sm-3");
+		enemyInPlay.removeClass("col-xs-6 col-sm-3 characterClick");
 		//any character here gets a class .enemyInPlay//
 		enemyInPlay.addClass("enemyInPlay");
 		$("#playLog1").html("Start fighting by clicking the attack button!");
