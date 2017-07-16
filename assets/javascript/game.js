@@ -43,9 +43,9 @@ function createCharacter(){
 				"src": characterPool[i].imageSource,
 			}),
 			characterName: $("<h4>").html(characterPool[i].name),
-			characterAttackPoints: $("<p>").html("Attack: " + characterPool[i].attackPoints),
-			characterHealthPoints: $("<p>").html("Health: " + characterPool[i].healthPoints),
-			characterCounterAttackPoints: $("<p>").html("Counter Attack: " + characterPool[i].counterAttackPoints),
+			characterAttackPoints: $("<p>").addClass("attackPoints"),
+			characterHealthPoints: $("<p>").addClass("healthPoints"),
+			characterCounterAttackPoints: $("<p>").addClass("counterAttackPoints"),
 		};
 		character.append(
 			characterStats.characterImage,
@@ -54,6 +54,9 @@ function createCharacter(){
 			characterStats.characterHealthPoints,
 			characterStats.characterCounterAttackPoints
 		);
+		characterStats.characterAttackPoints.html(characterPool[i].attackPoints);
+		characterStats.characterHealthPoints.html(characterPool[i].healthPoints);
+		characterStats.characterCounterAttackPoints.html(characterPool[i].counterAttackPoints);
 		$("#charPool").append(character);
 	}
 }
@@ -73,7 +76,7 @@ $(".characterClick").click(function(){
 		playerInPlay.removeClass("col-xs-6 col-sm-3");
 		//any character that goes in here gets a class .playerInPlay//
 		playerInPlay.addClass("playerInPlay");
-		$("#playLog").html("Choose an enemy to fight!");
+		$("#playLog1").html("Choose an enemy to fight!");
 		//second click goes to enemy area//
 	} else if($("#enemyArea").html() == ""){
 		var enemyInPlay = $(this);
@@ -82,13 +85,32 @@ $(".characterClick").click(function(){
 		enemyInPlay.removeClass("col-xs-6 col-sm-3");
 		//any character here gets a class .enemyInPlay//
 		enemyInPlay.addClass("enemyInPlay");
-		$("#playLog").html("Start fighting by clicking the attack button!");
+		$("#playLog1").html("Start fighting by clicking the attack button!");
+	} else{
+		$("#playLog1").html("Beat this enemy first! Click the attack button!");
 	}
 });
 
 //define what happens when the attack button is pressed//
+var i = 1;
 $("#attackButton").click(function(){
-	
+	var playerAttack = $(".playerInPlay .attackPoints").html()
+	var enemyCounterAttack =$(".enemyInPlay .counterAttackPoints").html()
+	var playerHealth = $(".playerInPlay .healthPoints").html();
+	var enemyHealth =$(".enemyInPlay .healthPoints").html();
+	if($("#playerArea").html() !== "" && $("#enemyArea").html() !== ""){
+		console.log("ready to play");
+		//new enemy health//
+		var newEnemyHealth = enemyHealth - playerAttack;
+		$("#playLog1").html("You attacked for " + playerAttack + "points.");
+		$(".enemyInPlay .healthPoints").html(newEnemyHealth);
+		var newPlayerHealth = playerHealth - enemyCounterAttack;
+		$("#playLog2").html("He attacked for " + enemyCounterAttack + "points.");
+		$(".playerInPlay .healthPoints").html(newPlayerHealth);
+		i++;
+		console.log(i);
+		$(".playerInPlay .attackPoints").html(playerAttack*i);
+	}
 });
 
 		
@@ -104,7 +126,7 @@ $("#attackButton").click(function(){
 //if there is nothing in the enemy area//
 	//please pick an enemy//
 //once both areas are filled//
-	//new enemy health = player attack - enemy health//
+	
 	//every time the player attacks, the attack point multiplier goes up by 1//
 		//if enemy health = 0 then enemy is removed from enemy area and next enemy needs to be clicked//
 		//when last enemy is defeated the player wins the game//
