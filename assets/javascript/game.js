@@ -55,21 +55,21 @@ function createCharacter(){
 				"src": characterPool[i].imageSource,
 			}),
 			characterName: $("<h4>").html(characterPool[i].name),
-			characterAttackPoints: $("<p>").addClass("attackPoints"),
-			characterHealthPoints: $("<p>").addClass("healthPoints"),
-			characterCounterAttackPoints: $("<p>").addClass("counterAttackPoints"),
+			characterAttackPoints: $("<span>").html(characterPool[i].attackPoints),
+			characterHealthPoints: $("<span>").html(characterPool[i].healthPoints),
+			characterCounterAttackPoints: $("<span>").html(characterPool[i].counterAttackPoints)
 		};
 		character.append(
 			characterStats.characterImage,
 			characterStats.characterName,
-			characterStats.characterAttackPoints,
-			characterStats.characterHealthPoints,
-			characterStats.characterCounterAttackPoints
+			$("<p>").html("Attack: ").append(characterStats.characterAttackPoints),
+			$("<p>").html("Health: ").append(characterStats.characterHealthPoints),
+			$("<p>").html("Counter Attack: ").append(characterStats.characterCounterAttackPoints)
 		);
 		//originally these stats had identifying words in front of them, but then calling on an element with words and numbers to compare and change got really complicated, so I left them as is//
-		characterStats.characterAttackPoints.html(characterPool[i].attackPoints);
-		characterStats.characterHealthPoints.html(characterPool[i].healthPoints);
-		characterStats.characterCounterAttackPoints.html(characterPool[i].counterAttackPoints);
+		characterStats.characterAttackPoints.addClass("attackPoints");
+		characterStats.characterHealthPoints.addClass("healthPoints");
+		characterStats.characterCounterAttackPoints.addClass("counterAttackPoints");
 		$("#charPool").append(character);
 	}
 }
@@ -114,10 +114,10 @@ function fight(){
 		console.log("ready to play");
 		//new enemy health//
 		var newEnemyHealth = enemyHealth - playerAttack;
-		$("#playLog1").html("You attacked for " + playerAttack + "points.");
+		$("#playLog1").html("You attacked for " + playerAttack + " points.");
 		$(".enemyInPlay .healthPoints").html(newEnemyHealth);
 		var newPlayerHealth = playerHealth - enemyCounterAttack;
-		$("#playLog2").html("He attacked for " + enemyCounterAttack + "points.");
+		$("#playLog2").html("He attacked for " + enemyCounterAttack + " points.");
 		$(".playerInPlay .healthPoints").html(newPlayerHealth);
 		i++;
 		var newPlayerAttack = +playerAttack + +$(".playerInPlay").attr("value1");
@@ -134,18 +134,37 @@ function winLose(){
 	if(parseInt($(".enemyInPlay .healthPoints").html()) < 1 && parseInt($(".playerInPlay .healthPoints").html()) > 0){
 		console.log("enemy defeated")
 		$(".enemyInPlay").remove();
-		$("#playLog1").html("You won this battle!");
+		$("#playLog1").html("You won this battle! Your health is back to full.");
 		$("#playLog2").html("Choose another enemy to fight!");
+		//originally I wasn't going to have any health regeneration, but I figured you'll need full health to take on your next enemy, which might break the game, but whatever//
 		$(".playerInPlay .healthPoints").html($(".playerInPlay").attr("value2"));
 		if($("#charPool").html() == "" && $("#enemyArea").html() == ""){
 			console.log("won");
 			$("#playLog1").html("Congratulations!");
 			$("#playLog2").html("You won the game!");
+			$("#attackButton").html("Restart");
 		}
 	}	else if(parseInt($(".playerInPlay .healthPoints").html()) < 1){
 		console.log("lost");
 		$("#playLog1").html("You lost!");
 		$("#playLog2").html("");
+		$("#attackButton").html("Restart");
+	}
+}
+
+//I added a restart option that only shows up once you've either either won or lost//
+function restart(){
+	if($("#attackButton").html() == "Restart"){
+		$("#attackButton").click( function(){
+			console.log("restart works")
+			$(".playerInPlay").remove();
+			$(".enemyInPlay").remove();
+			$(".characterClick").remove();
+			$("#attackButton").html("Attack");
+			$("#playLog1").html("Choose a character to play as. This will be you for the rest of the game.");
+			$("#playLog2").html("");
+			createCharacter();
+		});
 	}
 }
 
@@ -154,15 +173,14 @@ $("#attackButton").click( function(){
 	console.log("attack works");
 	fight();
 	winLose();
+	restart();
 });
 
-//there are some things I wasn't able to fix://
-//if you've lost and keep clicking the attack button it is possible to see the numbers continue to change//
-//I was not able to make it so the numbers had actual words in front of them to denote what they are//
-//also, sorry if you're actually trying to play the game, the stats aren't terribly well balanced//
+//sorry if you're actually trying to play the game, the stats aren't terribly well balanced//
 
 //in general, if I had the knowledge when I started this project, I would've done many things differently//
 //I would have made an object that calls on html values of the thing that is clicked, that way I would have had that to call on instead of the mess that exists now//
 //I would have written out specific html for the play and enemy areas, and simply populated them with the object I would've created instead of using append//
 //I would have made the whole game an object, things would have been so much easier to debug that way//
 //and I would have used the chrome debugger a lot more, still something I have to get used to//
+//thanks again to my friend for helping me and allowing me to see things in a different perspective//
