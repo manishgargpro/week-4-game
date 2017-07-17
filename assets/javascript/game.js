@@ -81,7 +81,7 @@ $(".characterClick").click(function(){
 		$("#playerArea").append(playerInPlay);
 		$("#playLog1").html("Choose an enemy to fight!");
 		//second click goes to enemy area//
-	} else if($("#enemyArea").html() == ""){
+	} else if($("#enemyArea").html() == "" && $(this).hasClass("playerInPlay") == false){
 		var enemyInPlay = $(this);
 		enemyInPlay.removeClass("col-xs-6 col-sm-3 characterClick");
 		//any character here gets a class .enemyInPlay//
@@ -114,12 +114,15 @@ function fight(){
 		var newPlayerAttack = +playerAttack + +$(".playerInPlay").attr("value1");
 		$(".playerInPlay .attackPoints").html(newPlayerAttack);
 	}
+	if(parseInt($(".playerInPlay .healthPoints").html()) < 1){
+		return;
+	}
 }
 
 //determine battle outcomes based on health points//
 function winLose(){
 	console.log("winLose works")
-	if(parseInt($(".enemyInPlay .healthPoints").html()) < 1){
+	if(parseInt($(".enemyInPlay .healthPoints").html()) < 1 && parseInt($(".playerInPlay .healthPoints").html()) > 0){
 		console.log("enemy defeated")
 		$(".enemyInPlay").remove();
 		$("#playLog1").html("You won this battle!");
@@ -145,11 +148,11 @@ $("#attackButton").click( function(){
 	winLose();
 });
 
-//there are two edge cases I wasn't able to fix://
-//first, if you won a battle and haven't chosen your next enemy, it's possible to click yourself and become the enemy, then the game doesn't play correctly//
-//second, even if you've lost, if you keep clicking the attack button it is possible to win after the fact//
-
+//there are some things I wasn't able to fix://
+//if you've lost and keep clicking the attack button it is possible to see the numbers continue to change//
+//I was not able to make it so the numbers had actual words in front of them to denote what they are//
 //in general, if I had the knowledge when I started this project, I would've done many things differently//
 //I would have made an object that calls on html values of the thing that is clicked, that way I would have had that to call on instead of the mess that exists now//
+//I would have written out specific html for the play and enemy areas, and simply populated them with the object I would've created instead of using append//
 //I would have made the whole game an object, things would have been so much easier to debug that way//
 //and I would have used the chrome debugger a lot more, still something I have to get used to//
