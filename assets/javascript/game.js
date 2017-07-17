@@ -6,27 +6,36 @@ var characterPool = [
 		name: "Luke Skywalker",
 		id: "lukeSkywalker",
 		attackPoints: 20,
-		healthPoints: 200,
-		counterAttackPoints: 32,
+		healthPoints: 300,
+		counterAttackPoints: 35,
 		imageSource: "assets/images/luke-skywalker.jpg"
 	},
 
 	darthVader = {
 		name: "Darth Vader",
 		id: "darthVader",
-		attackPoints: 30,
+		attackPoints: 40,
 		healthPoints: 400,
-		counterAttackPoints: 40,
+		counterAttackPoints: 50,
 		imageSource: "assets/images/darth-vader.jpg"
 	},
 
 	bobaFett = {
 		name: "Boba Fett",
 		id: "bobaFett",
-		attackPoints: 10,
-		healthPoints: 180,
-		counterAttackPoints: 50,
+		attackPoints: 30,
+		healthPoints: 250,
+		counterAttackPoints: 45,
 		imageSource: "assets/images/boba-fett.jpg"
+	},
+
+	hanSolo = {
+		name: "Han Solo",
+		id: "hanSolo",
+		attackPoints: 35,
+		healthPoints: 200,
+		counterAttackPoints: 40,
+		imageSource: "assets/images/han-solo.jpg"
 	}
 ];
 
@@ -128,13 +137,12 @@ function winLose(){
 		$("#playLog1").html("You won this battle!");
 		$("#playLog2").html("Choose another enemy to fight!");
 		$(".playerInPlay .healthPoints").html($(".playerInPlay").attr("value2"));
-	}
-	else if($("#charPool").html() == "" && $("#enemyArea").html() == ""){
-		console.log("won");
-		$("#playLog1").html("Congratulations!");
-		$("#playLog2").html("You won the game!");
-	}
-	else if(parseInt($(".playerInPlay .healthPoints").html()) < 1){
+		if($("#charPool").html() == "" && $("#enemyArea").html() == ""){
+			console.log("won");
+			$("#playLog1").html("Congratulations!");
+			$("#playLog2").html("You won the game!");
+		}
+	}	else if(parseInt($(".playerInPlay .healthPoints").html()) < 1){
 		console.log("lost");
 		$("#playLog1").html("You lost!");
 		$("#playLog2").html("");
@@ -151,6 +159,8 @@ $("#attackButton").click( function(){
 //there are some things I wasn't able to fix://
 //if you've lost and keep clicking the attack button it is possible to see the numbers continue to change//
 //I was not able to make it so the numbers had actual words in front of them to denote what they are//
+//also, sorry if you're actually trying to play the game, the stats aren't terribly well balanced//
+
 //in general, if I had the knowledge when I started this project, I would've done many things differently//
 //I would have made an object that calls on html values of the thing that is clicked, that way I would have had that to call on instead of the mess that exists now//
 //I would have written out specific html for the play and enemy areas, and simply populated them with the object I would've created instead of using append//
