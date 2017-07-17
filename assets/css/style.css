@@ -1,6 +1,14 @@
+body{
+	background-image: url("../images/tileable-classic-nebula-space-patterns-1.jpg");
+}
+
+.jumbotron{
+	background-color: #728992;
+}
 
 .panel{
-	background-color: #B8DDF0;
+	background-color: #346059;
+	padding-bottom: 15px;
 }
 
 #charPool{
@@ -8,11 +16,19 @@
 }
 
 #playerArea{
-	background-color: #65F3C0;
+	background-color: #8cff8e;
 }
 
 #enemyArea{
-	background-color: #E2B280;
+	background-color: #ffc08c;
+}
+
+#playLog1{
+	color: white;
+}
+
+#playLog2{
+	color: white;
 }
 
 .emptyDiv{
