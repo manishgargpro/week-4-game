@@ -77,32 +77,36 @@ function createCharacter(){
 createCharacter();
 
 //because I had to use "this" in this function, I couldn't make it its own function that can be called anywhere, or at least I didn't know how//
-$(".characterClick").click(function(){
-	console.log("clicking works");
-//if someone is not already in the player area//
-	if ($("#playerArea").html() == ""){
-		//first click goes to player area//
-		var playerInPlay = $(this);
-		playerInPlay.removeClass("col-xs-6 col-sm-3 characterClick");
-		//any character that goes in here gets a class .playerInPlay//
-		playerInPlay.addClass("playerInPlay");
-		playerInPlay.detach();
-		$("#playerArea").append(playerInPlay);
-		$("#playLog1").html("Choose an enemy to fight!");
-		//second click goes to enemy area//
-	} else if($("#enemyArea").html() == "" && $(this).hasClass("playerInPlay") == false){
-		var enemyInPlay = $(this);
-		enemyInPlay.removeClass("col-xs-6 col-sm-3 characterClick");
-		//any character here gets a class .enemyInPlay//
-		enemyInPlay.addClass("enemyInPlay");
-		enemyInPlay.detach();
-		$("#enemyArea").append(enemyInPlay);
-		$("#playLog1").html("Start fighting by clicking the attack button!");
-		$("#playLog2").html("");
-	} else{
-		$("#playLog1").html("Beat this enemy first! Click the attack button!");
-	}
-});
+function chooseCharacter(){
+	$(".characterClick").click(function(){
+		console.log("clicking works");
+		//if someone is not already in the player area//
+		if ($("#playerArea").html() == ""){
+			//first click goes to player area//
+			var playerInPlay = $(this);
+			playerInPlay.removeClass("col-xs-6 col-sm-3 characterClick");
+			//any character that goes in here gets a class .playerInPlay//
+			playerInPlay.addClass("playerInPlay");
+			playerInPlay.detach();
+			$("#playerArea").append(playerInPlay);
+			$("#playLog1").html("Choose an enemy to fight!");
+			//second click goes to enemy area//
+		} else if($("#enemyArea").html() == "" && $(this).hasClass("playerInPlay") == false){
+			var enemyInPlay = $(this);
+			enemyInPlay.removeClass("col-xs-6 col-sm-3 characterClick");
+			//any character here gets a class .enemyInPlay//
+			enemyInPlay.addClass("enemyInPlay");
+			enemyInPlay.detach();
+			$("#enemyArea").append(enemyInPlay);
+			$("#playLog1").html("Start fighting by clicking the attack button!");
+			$("#playLog2").html("");
+		} else{
+			$("#playLog1").html("Beat this enemy first! Click the attack button!");
+		}
+	});
+}
+
+chooseCharacter();
 
 function fight(){
 	//this is why this code ended up being so messy, I had to call on numbers inside the html, not from the object, because I didn't know how to select objects based on user clicks//
@@ -152,18 +156,11 @@ function winLose(){
 	}
 }
 
-//I added a restart option that only shows up once you've either either won or lost//
+//I added a restart option that only shows up once you've either either won or lost, I couldn't figure out how to do this via js alone, so right now it just reloads the whole window//
 function restart(){
 	if($("#attackButton").html() == "Restart"){
 		$("#attackButton").click( function(){
-			console.log("restart works")
-			$(".playerInPlay").remove();
-			$(".enemyInPlay").remove();
-			$(".characterClick").remove();
-			$("#attackButton").html("Attack");
-			$("#playLog1").html("Choose a character to play as. This will be you for the rest of the game.");
-			$("#playLog2").html("");
-			createCharacter();
+			location.reload();
 		});
 	}
 }
